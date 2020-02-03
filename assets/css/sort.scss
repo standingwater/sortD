@@ -1,0 +1,326 @@
+$breakpoints: (
+  'md': 'screen and (max-width: 767px)',
+  'pc': 'screen and (max-width: 1023px)',
+) !default;
+
+@mixin mq($breakpoint: md) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+canvas {
+  vertical-align: top;
+}
+
+/* スタイルの引継ぎ */
+main {
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+#battleNumber {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 100;
+}
+#mainTable{
+  font-size: 15px;
+  font-family: 'ＭＳ Ｐゴシック',sans-serif;
+  text-align: center;
+  max-width: 410px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+#leftField,
+#rightField{
+  display: flex;
+  width: 32%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+}
+.centers{
+  display: flex;
+  flex-wrap: wrap;
+  width: 30%;
+}
+.middleField{
+  width: 100%;
+  border: 1px solid #000;
+  padding: 10px 0;
+}
+.middleField:first-of-type {
+  margin: 0 0 10px;
+}
+#textarea1 {
+  width: 100%;
+}
+A{
+  text-decoration : none;
+}
+a:hover{color:#99ccff;}
+
+.resultField {
+  display: none;
+}
+
+
+h1 {
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+.checkarea {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  h3 {
+    font-size: 16px;
+    font-weight: 100;
+  }
+  .checkarea_uls {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    ul {
+      display: flex;
+      width: 25%;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      margin: 0 0 15px;
+      padding: 0 10px;
+      border-right: 1px solid #ccc;
+      &:nth-child(4n){
+        border-right: none;
+      }
+      li {
+        width: 100%;
+        list-style-type: none;
+        & > label  {
+          font-size: 0.7em;
+          display: inline-block;
+          text-indent: -1em;
+          line-height: 1.4;
+          padding-left: 1em;
+          cursor: pointer;
+        }
+        &.categorise {
+          margin: 10px 0;
+          label {
+            width: auto;
+          }
+          &:first-child{
+            margin: 0 0 10px;
+          }
+        }
+        &:first-child{
+          margin: 0 0 10px;
+          & > label {
+            margin: 0 0 0 5px;
+          }
+        }
+        label {
+          position: relative;
+          width: 100%;
+          .yomikata {
+            display: none;
+          }
+          &:hover {
+            .yomikata {
+              display: inline-block;
+              position: absolute;
+              z-index: 9;
+              right: 0;
+              top: 0;
+              bottom: 0;
+              margin: auto 0;
+              background: #fff;
+              padding: 0 0 0 5px;
+            }
+          }
+        }
+      }
+    }  
+  }
+  @include mq(){
+    background: #fff;
+    transition: all 0.5s;
+    h3 {
+      margin: 0;
+    }
+    .checkarea_uls {
+      ul {
+        width: 50%;
+        padding: 0 5px 0 0;
+        &:nth-child(2n){
+          border-right: none;
+          padding: 0 0 0 5px;
+          box-sizing: border-box;
+        }
+      }
+    }
+    &.selectopen, &.selectclose {
+      top: 0;
+    }
+
+    &.selectopen {
+      left: 0;
+      position: absolute;
+      height: auto;
+    }
+    &.selectclose {
+      position: fixed;
+      left: 100%;
+      height: 100vh;
+      padding: 10px;
+      .acordionArea {
+        height: calc(100vh - 40px);
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+
+.resultField_captureArea {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 10px 0 0;
+  margin: 0;
+  box-sizing: border-box;
+  p {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 5px;
+    font-size: 14px;
+  }
+  @include mq(){
+    width: 100%;
+  }
+}
+#resultField {
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content:flex-start;
+  background: #f7ffff;
+  @include mq(){
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+#resultField table {
+  border:1px solid #000;
+  border-collapse:collapse;
+  flex: 1;
+  margin: 0;
+  @include mq(){
+    width: 50%;
+    flex: initial;
+  }
+}
+#resultField table tr td {
+  font-size: 12px;
+  padding: 5px 3px;
+  background: #fff;
+  text-align:center;
+}
+.resultField_twit {
+  margin: 16px 0 0;
+}
+.copy {
+  font-size: 80%;
+  margin: 20px 0 0;
+}
+
+
+
+/*  見た目の本格的な調整　そのうちmitame.scssとかで分離させた　　　　　い  */
+button {
+  zoom: 0.75;
+  &.reset {
+    background: #c71515;
+  }
+}
+.acordionArea {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  background: #f7ffff;
+}
+
+@include mq(){
+  .checkarea.selectopen {
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+}
+
+#entypo-twitter {
+  fill: #00acee;
+  zoom: 0.7;
+  vertical-align: top;
+}
+.slidetg {
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover {
+    opacity: 0.7;
+    text-decoration: none;
+  }
+  @include mq(){
+    position: absolute;
+    left: -158px;
+    bottom: 15vh;
+    display: inline-block;
+    z-index: 9999;
+  }
+}
+
+.checkareaClose,
+.checkareaClose span {
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+.checkareaClose {
+  display: none;
+  @include mq(){
+    display: inline-block;
+    position: absolute;
+    width: 50px;
+    height: 44px;
+    right: 0;
+    top: 0;
+    background: #f7ffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 99;
+    zoom: 0.7;
+    span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color:#999;
+      border-radius: 4px;
+      &:nth-of-type(1) {
+        top: 20px;
+        transform: rotate(45deg);
+      }
+      &:nth-of-type(2) {
+        top: 20px;
+        transform: rotate(-45deg);   
+      }
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

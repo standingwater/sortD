@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index,follow,noodp">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Content-Language" content="jp">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <!-- HTML Meta Tags -->
+    <title>♦のキャラソート</title>
+    <meta name="description" content="♦のキャラソートができるページです。">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="♦のキャラソート">
+    <meta itemprop="description" content="♦のキャラソートができるページです。">
+    <meta itemprop="image" content="">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://bit.ly/3aOR4qQ">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="♦のキャラソート">
+    <meta property="og:description" content="♦のキャラソートができるページです。">
+    <meta property="og:image" content="https://standingwater.github.io/sort/assets/img/ogp.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="♦のキャラソート">
+    <meta name="twitter:description" content="♦のキャラソートができるページです。">
+    <meta name="twitter:image" content="https://standingwater.github.io/sort/assets/img/ogp.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/marx/2.0.4/marx.css">
+    <link rel="stylesheet" href="assets/css/sort.css">
+
+    <script src = "assets/js/html2canvas.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <h1>♦のキャラソート</h1>
+      <h2 id="battleNumber"></h2>
+      <div id="mainTable">
+        <div id="leftField"></div>
+        <div class="centers">
+          <div class="middleField">
+            引き分け
+          </div>
+          <div class="middleField">
+            どっちも知らない
+          </div>
+        </div>
+        <div id="rightField"></div>
+      </div>
+
+      <div class="resultField">
+        <div class="resultField_captureArea">
+          <p></p>
+          <div id="resultField"></div>
+        </div>
+        <p class="resultField_twit">
+          <a class="twitup" href="javascript:void(0)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" id="entypo-twitter" width="32" height="32" fill="currentColor"><g><path d="M17.316 6.246c.008.162.011.326.011.488 0 4.99-3.797 10.742-10.74 10.742-2.133 0-4.116-.625-5.787-1.697a7.577 7.577 0 0 0 5.588-1.562 3.779 3.779 0 0 1-3.526-2.621 3.858 3.858 0 0 0 1.705-.065 3.779 3.779 0 0 1-3.028-3.703v-.047a3.766 3.766 0 0 0 1.71.473 3.775 3.775 0 0 1-1.168-5.041 10.716 10.716 0 0 0 7.781 3.945 3.813 3.813 0 0 1-.097-.861 3.773 3.773 0 0 1 3.774-3.773 3.77 3.77 0 0 1 2.756 1.191 7.602 7.602 0 0 0 2.397-.916 3.789 3.789 0 0 1-1.66 2.088 7.55 7.55 0 0 0 2.168-.594 7.623 7.623 0 0 1-1.884 1.953z"/></g></svg>結果をTwitterに送信</a>(上位10名まで)　
+          <span class="resultImg">結果を画像として保存する</span>
+        </p>
+      </div>
+      <div class="checkarea">
+        <span class="checkareaClose">
+          <span></span>
+          <span></span>
+        </span>
+        <h3>
+          <span class="slidetg">▼範囲確認(クリック)</span>
+        </h3>
+        <div class="acordionArea">
+          <button class="submit">スタート</button>
+          <button class="reset">ソートリセット</button>
+          <label><input type="checkbox" name="checkresetall" value="00" checked>全部チェック</label>
+          <p>絞込み：
+            <label><input type="radio" name="specialSelect"  class="pi" value="投手">投手</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="pi-l" value="左腕投手">左腕投手</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="pi-r" value="右腕投手">右腕投手</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="ca" value="捕手">捕手</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="lh" value="左打ち">左打ち</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="rh" value="右打ち">右打ち</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="cp" value="キャプテン">キャプテン</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="tm" value="監督">監督</label><br>
+            <label><input type="radio" name="specialSelect" class="y1" value="1年">1年</label>
+            <label><input type="radio" name="specialSelect" class="y2" value="2年">2年</label>
+            <label><input type="radio" name="specialSelect" class="y3" value="3年">3年</label>            
+            <label><input type="radio" name="specialSelect" class="ob" value="OB">OB</label>             
+          </p>
+          <div class="checkarea_uls">
+            <ul>
+              <li class="categorise">青道2年<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y2" value="沢村栄純" checked>沢村栄純<span class="yomikata">（さわむら えいじゅん）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y2" value="降谷暁" checked>降谷暁<span class="yomikata">（ふるや さとる）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b2 rh y2" value="小湊春市" checked>小湊春市<span class="yomikata">（こみなと はるいち）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y2" value="金丸信二" checked>金丸信二<span class="yomikata">(かねまる しんじ)</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs pi-r rh y2" value="東条秀明" checked>東条秀明<span class="yomikata">(とうじょう ひであき)</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ss lh y2" value="高津広臣" checked>高津広臣<span class="yomikata">（たかつ ひろおみ）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y2" value="狩場航" checked>狩場航<span class="yomikata">（かりば わたる）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs y2" value="金田忠大" checked>金田忠大<span class="yomikata">（かねだ ただひろ）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs y2" value="岡健一" checked>岡健一<span class="yomikata">（おか けんいち）</span>
+              </label></li>
+            </ul>
+            <ul>
+              <li class="categorise">青道3年<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="御幸一也" checked>御幸一也<span class="yomikata">（みゆき かずや）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ss sh rh y3" value="倉持洋一" checked>倉持洋一<span class="yomikata">（くらもち よういち）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="川上憲史" checked>川上憲史<span class="yomikata">（かわかみ のりふみ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="前園健太" checked>前園健太<span class="yomikata">（まえぞの けんた）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs rf lh y3" value="白州健二郎" checked>白州健二郎<span class="yomikata">（しらす けんじろう）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y3" value="樋笠昭二" checked>樋笠昭二<span class="yomikata">（ひがさ しょうじ）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="麻生尊" checked>麻生尊<span class="yomikata">（あそう たける）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs y3" value="関直道" checked>関直道<span class="yomikata">（せき なおみち）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ss lh y3" value="中田中" checked>中田中<span class="yomikata">（なかた あたる）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y3" value="小野弘" checked>小野弘<span class="yomikata">（おの ひろし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh y3" value="木島澪" checked>木島澪<span class="yomikata">（きじま れい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="山口健" checked>山口健<span class="yomikata">（やまぐち けん）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs y3" value="川島謙吾" checked>川島謙吾<span class="yomikata">（かわしま けんご）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs y3" value="三村諒太" checked>三村諒太<span class="yomikata">（みむら りょうた）</span>
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="渡辺久志" checked>渡辺久志<span class="yomikata">（わたなべ ひさし）</span>
+              </label></li>
+            </ul>
+            <ul>
+              <li class="categorise">青道1年<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y1" value="奥村光舟" checked>奥村光舟<span class="yomikata">（おくむら こうしゅう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca lh y1" value="由井薫" checked>由井薫<span class="yomikata">（ゆい かおる）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="rh y1" value="結城将司" checked>結城将司<span class="yomikata">（ゆうき まさし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh y1" value="瀬戸拓馬" checked>瀬戸拓馬<span class="yomikata">（せと たくま）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l y1" value="浅田浩文" checked>浅田浩文<span class="yomikata">（あさだ ひろふみ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y1" value="九鬼洋平" checked>九鬼洋平<span class="yomikata">（くき ようへい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh y1" value="最上武" checked>最上武<span class="yomikata">（もがみ たけし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y1" value="加賀美貢太" checked>加賀美貢太<span class="yomikata">（かがみ こうた）</span></label></li>
+            </ul>
+            <ul>
+              <li class="categorise">青道OB<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="cp b1 rh ob" value="結城哲也" checked>結城哲也<span class="yomikata">（ゆうき てつや）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="伊佐敷純" checked>伊佐敷純<span class="yomikata">（いさしき じゅん）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh ob" value="増子透" checked>増子透<span class="yomikata">（ますこ とおる）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh ob" value="小湊亮介" checked>小湊亮介<span class="yomikata">（こみなと りょうすけ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="丹波光一郎" checked>丹波光一郎<span class="yomikata">（たんば こういちろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="滝川・クリス・優" checked>滝川・クリス・優<span class="yomikata">（たきがわ・クリス・ゆう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="宮内啓介" checked>宮内啓介<span class="yomikata">（みやうち けいすけ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="坂井一郎" checked>坂井一郎<span class="yomikata">（さかい いちろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="門田将明" checked>門田将明<span class="yomikata">（かどた まさあき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh ob" value="楠木文哉" checked>楠木文哉<span class="yomikata">（くすのき ふみや）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="田中晋" checked>田中晋<span class="yomikata">（たなか しん）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="遠藤直樹" checked>遠藤直樹<span class="yomikata">（えんどう なおき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob"value="山崎邦夫" checked>山崎邦夫<span class="yomikata">（やまざき くにお）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="槇原真澄" checked>槇原真澄<span class="yomikata">（まきはら　ますみ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="斎藤寛己" checked>斎藤寛己<span class="yomikata">（さいとう　ひろみ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="桑田雅樹" checked>桑田雅樹<span class="yomikata">（くわた　まさき）</span></label></li>
+            </ul>
+            <ul>
+              <li class="categorise">青道スタッフ<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="片岡鉄心" checked>片岡鉄心<span class="yomikata">（かたおか てっしん）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="太田一義" checked>太田一義<span class="yomikata">（おおた かずよし）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="高島礼" checked>高島礼<span class="yomikata">（たかしま れい）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="落合博光" checked>落合博光<span class="yomikata">（おちあい ひろみつ）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" value="吉川春乃" checked>吉川春乃<span class="yomikata">（よしかわ はるの）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="藤原貴子" checked>藤原貴子<span class="yomikata">（ふじわら たかこ）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="梅本幸子" checked>梅本幸子<span class="yomikata">（うめもと さちこ）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="夏川唯" checked>夏川唯<span class="yomikata">（なつかわ ゆい）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="小田茜" checked>小田茜<span class="yomikata">（おだ　あかね）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="黒木杏奈" checked>黒木杏奈<span class="yomikata">（くろき　あんな）</span></label></li>
+            </ul>
+            
+            <ul>
+              <li class="categorise">稲城実業<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="国友広重" checked>国友広重<span class="yomikata">（くにとも ひろしげ）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="林田正義" checked>林田正義<span class="yomikata">（はやしだ まさよし）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y3" value="成宮鳴" checked>成宮鳴<span class="yomikata">（なるみや めい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="神谷カルロス俊樹" checked>神谷カルロス俊樹<span class="yomikata">（かみや カルロス としき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh y3" value="白河勝之" checked>白河勝之<span class="yomikata">（しらかわ かつゆき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp y3" value="福井健斗" checked>福井健斗<span class="yomikata">（ふくい けんと）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="山岡陸" checked>山岡陸<span class="yomikata">（やまおか りく）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y3" value="矢部浩二" checked>矢部浩二<span class="yomikata">（やべ こうじ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y2" value="多田野樹" checked>多田野樹<span class="yomikata">（ただの いつき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y1" value="赤松晋二" checked>赤松晋二<span class="yomikata">（あかまつ しんじ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="水石燿司" checked>水石燿司<span class="yomikata">（みずいし ようじ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="吉沢明光" checked>吉沢明光<span class="yomikata">（よしざわ あきみつ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="志摩良平" checked>志摩良平<span class="yomikata">（しま りょうへい）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="原田雅功" checked>原田雅功<span class="yomikata">（はらだ まさとし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b3 ob" value="吉沢秀明" checked>吉沢秀明<span class="yomikata">（よしざわ ひであき）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="井口雄大" checked>井口雄大<span class="yomikata">（いぐち ゆうだい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b2 ob" value="平井翼" checked>平井翼<span class="yomikata">（ひらい つばさ）</span></label></li>
+            </ul>
+
+            <ul>
+              <li class="categorise">市大三高<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="田原利彦" checked>田原利彦<span class="yomikata">（たはら としひこ）</span></label></li>
+            
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="天久光聖" checked>天久光聖<span class="yomikata">（あまひさ こうせい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp b1 lh y3" value="星田守" checked>星田守<span class="yomikata">（ほしだ まもる）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="真中要" checked>真中要<span class="yomikata">（まなか かなめ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp b3 rh ob" value="大前隆広" checked>大前隆広<span class="yomikata">（おおまえ たかひろ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y3" value="宮川輝" checked>宮川輝<span class="yomikata">（みやかわ　てる）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca y3" value="高見晃人" checked>高見晃人<span class="yomikata">（たかみ　あきと）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y3"value="千丸浩史" checked>千丸浩史<span class="yomikata">（ちまる　こうじ）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="佐々木伸介" class="y2" checked>佐々木伸介<span class="yomikata">（ささき　しんすけ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y3" value="水沼開" checked>水沼開<span class="yomikata">（みずぬま　かい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="阿部祐介" checked>阿部祐介<span class="yomikata">（あべ　ゆうすけ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" class="pi" value="照井匡" checked>照井匡<span class="yomikata">（てるい　ただし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="久原一丘" checked>久原一丘<span class="yomikata">（くはら　かずたか）</span></label></li>
+            </ul>
+            <ul>
+              <li class="categorise">薬師高校<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="轟雷蔵" checked>轟雷蔵<span class="yomikata">（とどろき らいぞう）</span></label></li>
+            
+              <li><label><input type="checkbox" name="select" class="b3 pi pi-r rh y2" value="轟雷市" checked>轟雷市<span class="yomikata">（とどろき らいち）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi b1 pi-r rh y3" value="真田俊平" checked>真田俊平<span class="yomikata">（さなだ しゅんぺい）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 pi pi-r ca b3 rh y2" value="三島優太" checked>三島優太<span class="yomikata">（みしま ゆうた）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs ca pi pi-r lh y2" value="秋葉一真" checked>秋葉一真<span class="yomikata">（あきば かずま）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp fs y3" value="平畠遼" checked>平畠遼<span class="yomikata">（ひらはた　りょう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l y1" value="友部先人" checked>友部先人<span class="yomikata">（ともべ さきと）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="谷口翔" class="y1"checked>谷口翔<span class="yomikata">（たにぐち　しょう）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="黒木大剛" class="y1" checked>黒木大剛<span class="yomikata">（くろき　だいご）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="早川大河" class="y1" checked>早川大河<span class="yomikata">（はやかわ だいが）</span></label></li>
+            </ul>
+            <ul>
+              <li>他校<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+
+
+              <li class="categorise">大阪桐生高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="松本隆広" checked>松本隆広<span class="yomikata">（まつもと たかひろ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="館広美" checked>館広美<span class="yomikata">（たち ひろみ）</span></label></li>
+
+              <li class="categorise">黒士館高校</li>
+              <li><label><input type="checkbox" name="select" class="rh ob" value="財前直行" checked>財前直行<span class="yomikata">（ざいぜん なおゆき）</span></label></li>
+
+              <li class="categorise">明川学園</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="尾形一成" checked>尾形一成<span class="yomikata">（おがた かずなり）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="楊舜臣" checked>楊舜臣<span class="yomikata">（よう しゅんしん / ヤン シュンチェン）</span></label></li>
+                      
+              
+              <li class="categorise">仙泉学園</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="鵜飼一良" checked>鵜飼一良<span class="yomikata">（うがい かずよし）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="真木洋介" checked>真木洋介<span class="yomikata">（まき ようすけ）</span></label></li>
+                      
+              <li class="categorise">桜沢高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="菊川早苗" checked>菊川早苗<span class="yomikata">（きくかわ さなえ）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="長緒アキラ" checked>長緒アキラ<span class="yomikata">（ながお アキラ）</span></label></li>
+
+            </ul>
+            <ul>
+              <li>他校<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li> 
+              <li class="categorise">成孔学園</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="熊切仁" checked>熊切仁<span class="yomikata">（くまきり じん）</span></label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="枡伸一郎" checked>枡伸一郎<span class="yomikata">（ます しんいちろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l rh y2" value="小川常松" checked>小川常松<span class="yomikata">（おがわ つねまつ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="長田翔平" checked>長田翔平<span class="yomikata">（ながた しょうへい）</span></label></li>
+
+              <li class="categorise">帝東高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="岡本一八" checked>岡本一八<span class="yomikata">（おかもと いっぱち）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y2" value="向井太陽" checked>向井太陽<span class="yomikata">（むかい たいよう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="乾憲剛" checked>乾憲剛 <span class="yomikata">（いぬい けんご）</span></label></li>
+                      
+              <li class="categorise">鵜久森高校</li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="梅宮聖一" checked>梅宮聖一<span class="yomikata">（うめみや せいいち）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="y3" value="松原南朋" checked>松原南朋<span class="yomikata">（まつばら なお）</span></label></li>
+                      
+              <li class="categorise">王谷高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="荒木伊知郎" checked>荒木伊知郎<span class="yomikata">（あらき いちろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r y3" value="若林豪" checked>若林豪<span class="yomikata">（わかばやし ごう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="春日貴浩" checked>春日貴浩<span class="yomikata">（かすが たかひろ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="山里洋平" checked>山里洋平<span class="yomikata">（やまざと ようへい）</span></label></li>
+            </ul>
+
+            <ul>
+              <li>周辺人物<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li><label><input type="checkbox" name="select" class="y2" value="蒼月若菜" checked>蒼月若菜<span class="yomikata">（あおつき わかな）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="沢村栄徳" checked>沢村栄徳<span class="yomikata">（さわむら えいとく）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="東清国" class="ob"checked>東清国<span class="yomikata">（あずま きよくに）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="J・アニマル・M" checked>J・アニマル・M</label></li>
+                      
+              <li><label><input type="checkbox" name="select" value="峰富士夫" checked>峰富士夫<span class="yomikata">（みね ふじお）</span></label></li>
+              <li><label><input type="checkbox" name="select" value="大和田秋子" checked>大和田秋子<span class="yomikata">（おおわだ あきこ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="榊英二郎" checked>榊英二郎<span class="yomikata">（さかき えいじろう）</span></label></li>
+            </ul>
+
+            <ul>
+              <li>Act2からの他校<label><input type="checkbox" name="checkreset" value="00" checked>全部チェック</label></li>
+              <li class="categorise">巨摩大藤巻高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="新田幸造" checked>新田幸造<span class="yomikata">（にった こうぞう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y2" value="本郷正宗" checked>本郷正宗<span class="yomikata">（ほんごう まさむね）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="ca y2" value="円城蓮司" checked>円城蓮司<span class="yomikata">（えんじょう れんじ）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="cp b2" value="西英雄" checked>西英雄<span class="yomikata">（にし　ひでお）</span></label></li>
+                      
+              <li class="categorise">好永（よしなが）</li>
+              <li><label><input type="checkbox" name="select" value="志波真" checked>志波真<span class="yomikata">（しば　まこと）</span></label></li>
+
+              <li class="categorise">山守学院</li>
+              <li><label><input type="checkbox" name="select" class="ca y2" value="神足和斗" checked>神足和斗<span class="yomikata">（こうたり　かずと）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r y2" value="神足優斗" checked>神足優斗<span class="yomikata">（こうたり　ゆうと）</span></label></li>
+
+              <li class="categorise">白龍高校</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="佐々木小太郎" checked>佐々木小太郎<span class="yomikata">（ささき こたろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y3" value="美馬総一郎" checked>美馬総一郎<span class="yomikata">（みま そういちろう）</span></label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r" value="王野新太郎" checked>王野新太郎<span class="yomikata">（おうの　しんたろう）</span></label></li>
+                      
+              <li class="categorise">西邦高校</li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="明石聖也" checked>明石聖也<span class="yomikata">（あかし　せいや）</span></label></li>
+            </ul>
+          </div>
+          
+          <small>その他追加したい項目がありましたら下記に記入してください。改行で項目の追加ができます。</small>
+          <textarea id="textarea1" rows="5" placeholder="例）キャラクター１&#13;&#10;キャラクター２&#13;&#10;キャラクター３&#13;&#10;……"></textarea>
+          <button class="submit">スタート</button>
+          <button class="reset">ソートリセット</button>
+        </div>
+      </div>
+      <p class="copy">ソース元：<a href="http://marineturtle.sakura.ne.jp/script/sort/hpsort/mergesort_exp.html" target="_blank">其の疾きこと亀の如く（跡地）</a> / <a href="https://web.archive.org/web/20110916091311/http://marineturtle.sakura.ne.jp/script/sort/hpsort/mergesort_exp.html" target="_blank">アーカイブ</a><br>
+      修正：捻り揚げ / 問い合わせたいことや不都合などがございましたら<a href="https://forms.gle/utsRjpVRjbtc4pVH8" target="_blank">こちらのフォーム</a>よりお気軽にどうぞ。</p>
+      
+
+    </main>
+  </body>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src = "assets/js/sort.js"></script>
+
+</html>

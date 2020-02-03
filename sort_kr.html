@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="index,follow,noodp">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="Content-Language" content="kr">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <!-- HTML Meta Tags -->
+    <title>♦캐릭터 소트</title>
+    <meta name="description" content="♦캐릭터 소트">
+
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="♦캐릭터 소트">
+    <meta itemprop="description" content="♦캐릭터 소트">
+    <meta itemprop="image" content="">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://standingwater.github.io/sort/sort_kr.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="♦캐릭터 소트">
+    <meta property="og:description" content="♦캐릭터 소트">
+    <meta property="og:image" content="https://standingwater.github.io/sort/assets/img/ogp.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="♦캐릭터 소트">
+    <meta name="twitter:description" content="♦캐릭터 소트">
+    <meta name="twitter:image" content="https://standingwater.github.io/sort/assets/img/ogp.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/marx/2.0.4/marx.css">
+    <link rel="stylesheet" href="assets/css/sort.css">
+
+    <script src = "assets/js/html2canvas.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <h1>♦캐릭터 소트</h1>
+      <h2 id="battleNumber"></h2>
+      <div id="mainTable">
+        <div id="leftField"></div>
+        <div class="centers">
+          <div class="middleField">
+            비김
+          </div>
+          <div class="middleField">
+            둘 다 모름
+          </div>
+        </div>
+        <div id="rightField"></div>
+      </div>
+
+      <div class="resultField">
+        <div class="resultField_captureArea">
+          <p></p>
+          <div id="resultField"></div>
+        </div>
+        <p class="resultField_twit">
+          <a class="twitup" href="javascript:void(0)"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20 20" id="entypo-twitter" width="32" height="32" fill="currentColor"><g><path d="M17.316 6.246c.008.162.011.326.011.488 0 4.99-3.797 10.742-10.74 10.742-2.133 0-4.116-.625-5.787-1.697a7.577 7.577 0 0 0 5.588-1.562 3.779 3.779 0 0 1-3.526-2.621 3.858 3.858 0 0 0 1.705-.065 3.779 3.779 0 0 1-3.028-3.703v-.047a3.766 3.766 0 0 0 1.71.473 3.775 3.775 0 0 1-1.168-5.041 10.716 10.716 0 0 0 7.781 3.945 3.813 3.813 0 0 1-.097-.861 3.773 3.773 0 0 1 3.774-3.773 3.77 3.77 0 0 1 2.756 1.191 7.602 7.602 0 0 0 2.397-.916 3.789 3.789 0 0 1-1.66 2.088 7.55 7.55 0 0 0 2.168-.594 7.623 7.623 0 0 1-1.884 1.953z"/></g></svg>결과를 트윗</a>(상위 10명까지)　
+          <span class="resultImg">소트 결과를 이미지로 저장</span>
+        </p>
+      </div>
+      <div class="checkarea">
+        <span class="checkareaClose">
+          <span></span>
+          <span></span>
+        </span>
+        <h3>
+          <span class="slidetg">▼범위 확인(클릭)</span>
+        </h3>
+        <div class="acordionArea">
+          <button class="submit">소트 시작</button>
+          <button class="reset">리셋</button>
+          <label><input type="checkbox" name="checkresetall" value="00" checked>전항목 체크</label>
+          <p>분류 : 
+            <label><input type="radio" name="specialSelect"  class="pi" value="투수">투수</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="pi-l" value="좌완투수">좌완투수</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="pi-r" value="우완투수">우완투수</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="ca" value="포수">포수</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="lh" value="좌타">좌타</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="rh" value="우타">우타</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="cp" value="주장즈">주장즈</label>&nbsp;
+            <label><input type="radio" name="specialSelect" class="tm" value="감독">감독</label><br>
+            <label><input type="radio" name="specialSelect" class="y1" value="1학년">1학년</label>
+            <label><input type="radio" name="specialSelect" class="y2" value="2학년">2학년</label>
+            <label><input type="radio" name="specialSelect" class="y3" value="3학년">3학년</label>            
+            <label><input type="radio" name="specialSelect" class="ob" value="OB">졸업생</label>             
+          </p>
+          <div class="checkarea_uls">
+            <ul>
+              <li class="categorise">세이도 2학년<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y2" value="사와무라 에이준" checked>사와무라 에이준</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y2" value="후루야 사토루" checked>후루야 사토루</label></li>
+              <li><label><input type="checkbox" name="select" class="b2 rh y2" value="코미나토 하루이치" checked>코미나토 하루이치</label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y2" value="카네마루 신지" checked>카네마루 신지
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs pi-r rh y2" value="토죠 히데아키" checked>토죠 히데아키
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ss lh y2" value="타카츠 히로오미" checked>타카츠 히로오미
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y2" value="카리바 와타루" checked>카리바 와타루
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs y2" value="카네다 타다히로" checked>카네다 타다히로
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs y2" value="오카 켄이치" checked>오카 켄이치
+              </label></li>
+            </ul>
+            <ul>
+              <li class="categorise">세이도 3학년<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="미유키 카즈야" checked>미유키 카즈야
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="ss sh rh y3" value="쿠라모치 요이치" checked>쿠라모치 요이치</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="카와카미 노리후미" checked>카와카미 노리후미</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="마에조노 켄타" checked>마에조노 켄타
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs rf lh y3" value="시라스 켄지로" checked>시라스 켄지로
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y3" value="히가사 쇼지" checked>히가사 쇼지
+              </label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="아소 타케루" checked>아소 타케루</label></li>
+              <li><label><input type="checkbox" name="select" class="fs y3" value="세키 나오미치" checked>세키 나오미치</label></li>
+              <li><label><input type="checkbox" name="select" class="ss lh y3" value="나카타 아타루" checked>나카타 아타루</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y3" value="오노 히로시" checked>오노 히로시</label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh y3" value="키지마 레이" checked>키지마 레이</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="야마구치 켄" checked>야마구치 켄</label></li>
+              <li><label><input type="checkbox" name="select" class="pi fs y3" value="카와시마 켄고" checked>카와시마 켄고</label></li>
+              <li><label><input type="checkbox" name="select" class="fs y3" value="미무라 료타" checked>미무라 료타</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="와타나베 히사시" checked>와타나베 히사시</label></li>
+            </ul>
+            <ul>
+              <li class="categorise">세이도 1학년<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y1" value="오쿠무라 코슈" checked>오쿠무라 코슈</label></li>
+              <li><label><input type="checkbox" name="select" class="ca lh y1" value="유이 카오루" checked>유이 카오루</label></li>
+              <li><label><input type="checkbox" name="select" class="rh y1" value="유우키 마사시" checked>유우키 마사시</label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh y1" value="세토 타쿠마" checked>세토 타쿠마</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l y1" value="아사다 히로후미" checked>아사다 히로후미</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y1" value="쿠키 요헤이" checked>쿠키 요헤이</label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh y1" value="모가미 타케시" checked>모가미 타케시</label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y1" value="카가미 코타" checked>카가미 코타</label></li>
+            </ul>
+            <ul>
+              <li class="categorise">세이도 졸업생<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="cp b1 rh ob" value="유우키 테츠야" checked>유우키 테츠야</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="이사시키 준" checked>이사시키 준</label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh ob" value="마스코 토오루" checked>마스코 토오루</label></li>
+              <li><label><input type="checkbox" name="select" class="b2 lh ob" value="코미나토 료스케" checked>코미나토 료스케</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="탄바 코이치로" checked>탄바 코이치로</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="타키가와 크리스 유우" checked>타키가와 크리스 유우</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="미야우치 케이스케" checked>미야우치 케이스케</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="사카이 이치로" checked>사카이 이치로</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh ob" value="카도타 마사아키" checked>카도타 마사아키</label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh ob" value="쿠스노키 후미야" checked>쿠스노키 후미야</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="다나카 신" checked>다나카 신</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="엔도 나오키" checked>엔도 나오키</label></li>
+              <li><label><input type="checkbox" name="select" class="ob"value="야마자키 쿠니오" checked>야마자키 쿠니오</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="마키하라 마스미" checked>마키하라 마스미</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="사이토 히로미" checked>사이토 히로미</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="쿠와타 마사키" checked>쿠와타 마사키</label></li>
+            </ul>
+            <ul>
+              <li class="categorise">세이도 스태프<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="카타오카 텟신" checked>카타오카 텟신</label></li>
+              <li><label><input type="checkbox" name="select" value="오오타 카즈요시" checked>오오타 카즈요시</label></li>
+              <li><label><input type="checkbox" name="select" value="타카시마 레이" checked>타카시마 레이</label></li>
+              <li><label><input type="checkbox" name="select" value="오치아이 히로미츠" checked>오치아이 히로미츠</label></li>
+                      
+              <li><label><input type="checkbox" name="select" value="요시카와 하루노" checked>요시카와 하루노</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="후지와라 타카코" checked>후지와라 타카코</label></li>
+              <li><label><input type="checkbox" name="select" value="우메모토 사치코" checked>우메모토 사치코</label></li>
+              <li><label><input type="checkbox" name="select" value="나츠카와 유이" checked>나츠카와 유이</label></li>
+              <li><label><input type="checkbox" name="select" value="오타 아카네" checked>오타 아카네</label></li>
+              <li><label><input type="checkbox" name="select" value="쿠로키 안나" checked>쿠로키 안나</label></li>
+            </ul>
+            
+            <ul>
+              <li class="categorise">이나시로<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="쿠니토모 히로시게" checked>쿠니토모 히로시게</label></li>
+              <li><label><input type="checkbox" name="select" value="하야시다 마사요시" checked>하야시다 마사요시</label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y3" value="나루미야 메이" checked>나루미야 메이</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="카미야 카를로스 토시키" checked>카미야 카를로스 토시키</label></li>
+              <li><label><input type="checkbox" name="select" class="ss rh y3" value="시라카와 카츠유키" checked>시라카와 카츠유키</label></li>
+              <li><label><input type="checkbox" name="select" class="cp y3" value="후쿠이 켄토" checked>후쿠이 켄토</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="야마오카 리쿠" checked>야마오카 리쿠</label></li>
+              <li><label><input type="checkbox" name="select" class="b3 rh y3" value="야베 코지" checked>야베 코지</label></li>
+              <li><label><input type="checkbox" name="select" class="ca rh y2" value="타다노 이츠키" checked>타다노 이츠키</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y1" value="아카마츠 신지" checked>아카마츠 신지</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="미츠이시 요지" checked>미츠이시 요지</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="요시자와 아키미츠" checked>요시자와 아키미츠</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="시마 료헤이" checked>시마 료헤이</label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="ca rh ob" value="하라다 마사토시" checked>하라다 마사토시</label></li>
+              <li><label><input type="checkbox" name="select" class="b3 ob" value="요시자와 히데아키" checked>요시자와 히데아키</label></li>
+              <li><label><input type="checkbox" name="select" class="ob" value="이구치 유다이" checked>이구치 유다이</label></li>
+              <li><label><input type="checkbox" name="select" class="b2 ob" value="히라이 츠바사" checked>히라이 츠바사</label></li>
+            </ul>
+
+            <ul>
+              <li class="categorise">이치다이산<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="타하라 토시히코" checked>타하라 토시히코</label></li>
+            
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="아마히사 코세이" checked>아마히사 코세이</label></li>
+              <li><label><input type="checkbox" name="select" class="cp b1 lh y3" value="호시다 마모루" checked>호시다 마모루</label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y3" value="미야카와 테루" checked>미야카와 테루</label></li>
+              <li><label><input type="checkbox" name="select" class="ca y3" value="타카미 아키토" checked>타카미 아키토</label></li>
+              <li><label><input type="checkbox" name="select" class="y3"value="치마루 코지" checked>치마루 코지</label></li>
+              <li><label><input type="checkbox" name="select" class="y3" value="미즈누마 카이" checked>미즈누마 카이</label></li>
+              <li><label><input type="checkbox" name="select" value="사사키 신스케" class="y2" checked>사사키 신스케</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="아베 유스케" checked>아베 유스케</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" class="pi" value="테루이 타다시" checked>테루이 타다시</label></li>
+              <li><label><input type="checkbox" name="select" class="y1" value="쿠하라 카즈타카" checked>쿠하라 카즈타카</label></li>
+
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="마나카 카나메" checked>마나카 카나메</label></li>
+              <li><label><input type="checkbox" name="select" class="cp b3 rh ob" value="오오마에 타카히로" checked>오오마에 타카히로</label></li>
+            </ul>
+
+            <ul>
+              <li class="categorise">야쿠시<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="토도로키 라이조" checked>토도로키 라이조</label></li>
+            
+              <li><label><input type="checkbox" name="select" class="b3 pi pi-r rh y2" value="토도로키 라이치" checked>토도로키 라이치</label></li>
+              <li><label><input type="checkbox" name="select" class="pi b1 pi-r rh y3" value="사나다 슌페이" checked>사나다 슌페이</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 pi pi-r ca b3 rh y2" value="미시마 유타" checked>미시마 유타</label></li>
+              <li><label><input type="checkbox" name="select" class="fs ca pi pi-r lh y2" value="아키바 카즈마" checked>아키바 카즈마</label></li>
+              <li><label><input type="checkbox" name="select" class="cp fs y3" value="히라하타 료" checked>히라하타 료</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l y1" value="토모베 사키토" checked>토모베 사키토</label></li>
+              <li><label><input type="checkbox" name="select" value="타니구치 쇼" class="y1"checked>타니구치 쇼</label></li>
+              <li><label><input type="checkbox" name="select" value="쿠로키 다이고" class="y1" checked>쿠로키 다이고</label></li>
+              <li><label><input type="checkbox" name="select" value="하야카와 다이가" class="y1" checked>하야카와 다이가</label></li>
+            </ul>
+            <ul>
+              <li>타교<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+
+
+              <li class="categorise">오사카 키류</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="마츠모토 타카히로" checked>마츠모토 타카히로</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="타테 히로미" checked>타테 히로미</label></li>
+
+              <li class="categorise">코쿠시칸</li>
+              <li><label><input type="checkbox" name="select" class="rh ob" value="자이젠 나오유키" checked>자이젠 나오유키</label></li>
+
+              <li class="categorise">아키카와</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="오가타 카즈나리" checked>오가타 카즈나리</label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="요우 순신" checked>요우 순신</label></li>
+                      
+              
+              <li class="categorise">센센</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="우가이 카즈요시" checked>우가이 카즈요시</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="마키 요스케" checked>마키 요스케</label></li>
+                      
+              <li class="categorise">사쿠라자와</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="키쿠카와 사나에" checked>키쿠카와 사나에</label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh ob" value="나가오 아키라" checked>나가오 아키라</label></li>
+
+            </ul>
+            <ul>
+              <li>타교<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li> 
+              <li class="categorise">세이코</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="쿠마키리 진" checked>쿠마키리 진</label></li>
+                      
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="마스 신이치로" checked>마스 신이치로</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l rh y2" value="오가와 츠네마츠" checked>오가와 츠네마츠</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="나가타 쇼헤이" checked>나가타 쇼헤이</label></li>
+
+              <li class="categorise">테이토</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="오카모토 잇파치" checked>오카모토 잇파치</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-l lh y2" value="무카이 타이요" checked>무카이 타이요</label></li>
+              <li><label><input type="checkbox" name="select" class="cp ca lh y3" value="이누이 켄고" checked>이누이 켄고</label></li>
+                      
+              <li class="categorise">우구모리</li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="우메미야 세이이치" checked>우메미야 세이이치</label></li>
+              <li><label><input type="checkbox" name="select" class="y3" value="마츠바라 나오" checked>마츠바라 나오</label></li>
+                      
+              <li class="categorise">오우야</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="아라키 이치로" checked>아라키 이치로</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r y3" value="와카바야시 고" checked>와카바야시 고</label></li>
+              <li><label><input type="checkbox" name="select" class="b1 rh y3" value="카스가 타카히로" checked>카스가 타카히로</label></li>
+              <li><label><input type="checkbox" name="select" class="fs rh y3" value="야마자토 요헤이" checked>야마자토 요헤이</label></li>
+            </ul>
+
+            <ul>
+              <li>주변인물<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li><label><input type="checkbox" name="select" class="y2" value="아오츠키 와카나" checked>아오츠키 와카나</label></li>
+              <li><label><input type="checkbox" name="select" value="사와무라 에이토쿠" checked>사와무라 에이토쿠</label></li>
+              <li><label><input type="checkbox" name="select" value="아즈마 키요쿠니" class="ob"checked>아즈마 키요쿠니</label></li>
+              <li><label><input type="checkbox" name="select" value="J 애니멀 M" checked>J 애니멀 M</label></li>
+                      
+              <li><label><input type="checkbox" name="select" value="미네 후지오" checked>미네 후지오</label></li>
+              <li><label><input type="checkbox" name="select" value="오와다 아키코" checked>오와다 아키코</label></li>
+              <li><label><input type="checkbox" name="select" class="tm" value="사카키 에이지로" checked>사카키 에이지로</label></li>
+            </ul>
+
+            <ul>
+              <li>Act2부터 등장한 타교<label><input type="checkbox" name="checkreset" value="00" checked>전부 체크</label></li>
+              <li class="categorise">코마다이후지마키</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="닛타 코조" checked>닛타 코조</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y2" value="혼고 마사무네" checked>혼고 마사무네</label></li>
+              <li><label><input type="checkbox" name="select" class="ca y2" value="엔죠 렌지" checked>엔죠 렌지</label></li>
+              <li><label><input type="checkbox" name="select" class="cp b2" value="니시 히데오" checked>니시 히데오</label></li>
+                      
+              <li class="categorise">요시나가</li>
+              <li><label><input type="checkbox" name="select" value="시바 마코토" checked>시바 마코토</label></li>
+
+              <li class="categorise">야마모리</li>
+              <li><label><input type="checkbox" name="select" class="ca y2" value="코타리 카즈토" checked>코타리 카즈토</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r y2" value="코타리 유토" checked>코타리 유토</label></li>
+
+              <li class="categorise">하쿠류</li>
+              <li><label><input type="checkbox" name="select" class="tm" value="사사키 코타로" checked>사사키 코타로</label></li>
+              <li><label><input type="checkbox" name="select" class="fs lh y3" value="미마 소이치로" checked>미마 소이치로</label></li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r" value="오우노 신타로" checked>오우노 신타로</label></li>
+                      
+              <li class="categorise">세이호</li>
+              <li><label><input type="checkbox" name="select" class="pi pi-r rh y3" value="아카시 세이야" checked>아카시 세이야</label></li>
+            </ul>
+          </div>
+          
+          <small>아래 텍스트 박스에서 별도로 추가하고픈 항목을 넣을 수 있습니다. 개행으로 분리됩니다. </small>
+          <textarea id="textarea1" rows="5" placeholder="Ex) 캐릭터1&#13;&#10;캐릭터 2&#13;&#10;캐릭터 3&#13;&#10;……"></textarea>
+          <button class="submit">소트 스타트</button>
+          <button class="reset">리셋</button>
+        </div>
+      </div>
+      <p class="copy">소스 원출처：<a href="http://marineturtle.sakura.ne.jp/script/sort/hpsort/mergesort_exp.html" target="_blank">其の疾きこと亀の如く（링크잘림）</a> / <a href="https://web.archive.org/web/20110916091311/http://marineturtle.sakura.ne.jp/script/sort/hpsort/mergesort_exp.html" target="_blank">아카이브</a><br>
+      수정: ㄲㅂㄱㄱㅈ / 이름이나 포지션 틀렸다던가 기타 문의사항 있으면 포타 메세지로 남겨주십쇼</p>
+      
+
+    </main>
+  </body>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src = "assets/js/sort_kr.js"></script>
+
+</html>
